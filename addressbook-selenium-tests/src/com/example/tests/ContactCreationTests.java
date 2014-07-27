@@ -6,10 +6,10 @@ package com.example.tests;
 
 import org.testng.annotations.Test;
 
-public class CreateContactTests extends TestBase {
+public class ContactCreationTests extends TestBase {
 
     @Test
-    public void testUntitled() throws Exception {
+    public void testNonEmptyContactCreation() throws Exception {
         openMainPage();
         gotoContactPage();
         ContactData contactData = new ContactData();
