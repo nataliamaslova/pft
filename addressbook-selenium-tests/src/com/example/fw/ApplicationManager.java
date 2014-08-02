@@ -22,9 +22,10 @@ public class ApplicationManager {
         baseUrl = "http://localhost/";
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 
-        navigationHelper = new NavigationHelper(this);
-        groupHelper = new GroupHelper(this);
-        contactHelper = new ContactHelper(this);
+        // explicit initialization
+//        navigationHelper = new NavigationHelper(this);
+//        groupHelper = new GroupHelper(this);
+//        contactHelper = new ContactHelper(this);
     }
 
     public void stop() {
