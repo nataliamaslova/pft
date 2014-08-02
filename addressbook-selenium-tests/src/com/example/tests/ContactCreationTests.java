@@ -10,8 +10,8 @@ public class ContactCreationTests extends TestBase {
 
     @Test
     public void testNonEmptyContactCreation() throws Exception {
-        app.navigationHelper.openMainPage();
-        app.navigationHelper.gotoContactPage();
+        app.getNavigationHelper().openMainPage();
+        app.getNavigationHelper().gotoContactPage();
         ContactData contactData = new ContactData();
         contactData.firstName = "Alexander";
         contactData.lastName = "Dumchikov";
@@ -22,9 +22,9 @@ public class ContactCreationTests extends TestBase {
         contactData.monthBirth = "July";
         contactData.yearBirth = "1980";
         contactData.groupName = "group 1";
-        app.contactHelper.fillContactForm(contactData);
-        app.contactHelper.submitContactCreation();
-        app.navigationHelper.gotoHomePage();
+        app.getContactHelper().fillContactForm(contactData);
+        app.getContactHelper().submitContactCreation();
+        app.getNavigationHelper().gotoHomePage();
     }
 
 }
