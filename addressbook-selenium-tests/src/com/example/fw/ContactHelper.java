@@ -2,7 +2,6 @@ package com.example.fw;
 
 import com.example.tests.ContactData;
 import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.Select;
 
 /**
  * Created by nataliamaslova on 8/2/2014.
