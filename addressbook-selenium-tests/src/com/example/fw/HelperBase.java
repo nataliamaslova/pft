@@ -28,7 +28,9 @@ public abstract class HelperBase {
     }
 
     protected void selectByText(By locator, String text) {
-        new Select(driver.findElement(locator)).selectByVisibleText(text);
+        if (text != null) {
+            new Select(driver.findElement(locator)).selectByVisibleText(text);
+        }
     }
 
 }

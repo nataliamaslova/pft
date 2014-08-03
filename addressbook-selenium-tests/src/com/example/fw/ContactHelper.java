@@ -28,4 +28,20 @@ public class ContactHelper extends HelperBase {
         selectByText(By.name("new_group"), contactData.getGroupName());
     }
 
+    public void initContactModification(int index) {
+        selectContactByIndex(index);
+    }
+
+    private void selectContactByIndex(int index) {
+        click(By.xpath("//table/tbody/tr[" + (1 + index) + "]/td[7]/a/img"));
+    }
+
+    public void submitContactModification() {
+        click(By.name("update"));
+    }
+
+    public void deleteContact(int index) {
+        initContactModification(index);
+        click(By.xpath("//input[@value=\"Delete\"]"));
+    }
 }
