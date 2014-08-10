@@ -5,6 +5,7 @@ package com.example.tests;
 
 import org.testng.annotations.Test;
 
+import java.util.Collections;
 import java.util.List;
 
 import static org.testng.Assert.assertEquals;
@@ -21,11 +22,11 @@ public class GroupCreationTests extends TestBase {
 
         // actions
         app.getGroupHelper().initGroupCreation();
-        GroupData groupData = new GroupData();
-        groupData.name = "group 1";
-        groupData.footer = "footer 1";
-        groupData.header = "header 1";
-        app.getGroupHelper().fillGroupForm(groupData);
+        GroupData group = new GroupData();
+        group.name = "tea";
+        group.footer = "footer 1";
+        group.header = "header 1";
+        app.getGroupHelper().fillGroupForm(group);
         app.getGroupHelper().submitGroupCreation();
         app.getNavigationHelper().gotoGroupsPage();
 
@@ -34,6 +35,10 @@ public class GroupCreationTests extends TestBase {
 
         // compare states
         assertEquals(newList.size(), oldList.size() + 1);
+
+        oldList.add(group);
+        Collections.sort(oldList);
+        assertEquals(newList, oldList);
     }
 
 //    @Test
