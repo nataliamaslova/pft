@@ -30,6 +30,8 @@ public class GroupData implements Comparable<GroupData> {
     public String toString() {
         return "GroupData{" +
                 "name='" + name + '\'' +
+                ", header='" + header + '\'' +
+                ", footer='" + footer + '\'' +
                 '}';
     }
 
