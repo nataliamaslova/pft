@@ -3,10 +3,10 @@
  */
 package com.example.tests;
 
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
 
 import static org.testng.Assert.assertEquals;
 

@@ -1,6 +1,5 @@
 package com.example.fw;
 
-import com.beust.jcommander.internal.Lists;
 import com.example.tests.GroupData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;

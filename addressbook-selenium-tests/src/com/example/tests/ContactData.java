@@ -1,29 +1,17 @@
 package com.example.tests;
 
-public class ContactData {
-    public String firstName;
-    public String lastName;
-    public String address;
-    public String mobilePhone;
-    public String email;
-    public String dateBirth;
-    public String monthBirth;
-    public String yearBirth;
-    public String groupName;
+public class ContactData implements Comparable<ContactData> {
+    private String firstName;
+    private String lastName;
+    private String address;
+    private String mobilePhone;
+    private String email;
+    private String dateBirth;
+    private String monthBirth;
+    private String yearBirth;
+    private String groupName;
 
     public ContactData() {
-    }
-
-    public ContactData(String firstName, String lastName, String address, String mobilePhone, String email, String dateBirth, String monthBirth, String yearBirth, String groupName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.address = address;
-        this.mobilePhone = mobilePhone;
-        this.email = email;
-        this.dateBirth = dateBirth;
-        this.monthBirth = monthBirth;
-        this.yearBirth = yearBirth;
-        this.groupName = groupName;
     }
 
     public String getFirstName() {
@@ -61,4 +49,78 @@ public class ContactData {
     public String getGroupName() {
         return groupName;
     }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setMobilePhone(String mobilePhone) {
+        this.mobilePhone = mobilePhone;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setDateBirth(String dateBirth) {
+        this.dateBirth = dateBirth;
+    }
+
+    public void setMonthBirth(String monthBirth) {
+        this.monthBirth = monthBirth;
+    }
+
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
+    }
+
+    public void setYearBirth(String yearBirth) {
+        this.yearBirth = yearBirth;
+    }
+
+    @Override
+    public String toString() {
+        return "ContactData{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", address='" + address + '\'' +
+                ", mobilePhone='" + mobilePhone + '\'' +
+                ", email='" + email + '\'' +
+                ", dateBirth='" + dateBirth + '\'' +
+                ", monthBirth='" + monthBirth + '\'' +
+                ", yearBirth='" + yearBirth + '\'' +
+                ", groupName='" + groupName + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ContactData)) return false;
+
+        ContactData that = (ContactData) o;
+
+        if (!lastName.equals(that.lastName)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return lastName.hashCode();
+    }
+
+    @Override
+    public int compareTo(ContactData other) {
+        return this.getLastName().toLowerCase().compareTo(other.getLastName().toLowerCase());
+    }
+
 }
