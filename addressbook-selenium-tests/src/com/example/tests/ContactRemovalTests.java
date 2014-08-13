@@ -28,8 +28,8 @@ public class ContactRemovalTests extends TestBase {
         List<ContactData> newList = app.getContactHelper().getContacts();
 
         // compare states
-        oldList.remove(index);
         Collections.sort(oldList);
+        oldList.remove(index);
         assertEquals(newList, oldList);
     }
 

@@ -32,8 +32,8 @@ public class GroupRemovalTests extends TestBase {
         List<GroupData> newList = app.getGroupHelper().getGroups();
 
         // compare states
-        oldList.remove(index);
         Collections.sort(oldList);
+        oldList.remove(index);
         assertEquals(newList, oldList);
     }
 }
