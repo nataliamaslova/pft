@@ -4,6 +4,7 @@ import org.testng.annotations.Test;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 import static org.testng.Assert.assertEquals;
 
@@ -12,25 +13,22 @@ import static org.testng.Assert.assertEquals;
  */
 public class ContactModificationTests extends TestBase {
 
-    @Test
-    public void modifySomeContact() {
+    @Test(dataProvider = "randomValidContactGenerator")
+    public void modifySomeContact(ContactData contact) {
         app.getNavigationHelper().openMainPage();
-        int index = 0;
 
         // save old state
         List<ContactData> oldList = app.getContactHelper().getContacts();
 
+        Random rnd = new Random();
+        int index = rnd.nextInt(oldList.size() - 1);
+
         // actions
         app.getContactHelper().initContactModification(index);
-        ContactData contact = new ContactData();
-        contact.setFirstName(oldList.get(index).getFirstName());
-        contact.setLastName(oldList.get(index).getLastName());
-        contact.setAddress("Saint-Petersburg, Smolenskaya Street 21");
-        contact.setMobilePhone(oldList.get(index).getMobilePhone());
-        contact.setEmail(oldList.get(index).getEmail());
-        contact.setDateBirth(oldList.get(index).getDateBirth());
-        contact.setMonthBirth(oldList.get(index).getMonthBirth());
-        contact.setYearBirth(oldList.get(index).getYearBirth());
+        contact.setFirstName("Natalia");
+        contact.setLastName("Maslova");
+        contact.setMobilePhone("+380509997755");
+        contact.setEmail("maslova.nd@gmail.com");
         app.getContactHelper().fillContactForm(contact);
         app.getContactHelper().submitContactModification();
         app.getNavigationHelper().openMainPage();

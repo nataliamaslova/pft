@@ -50,24 +50,28 @@ public class ContactData implements Comparable<ContactData> {
         return groupName;
     }
 
-    public void setFirstName(String firstName) {
+    public ContactData setFirstName(String firstName) {
         this.firstName = firstName;
+        return this;
     }
 
-    public void setLastName(String lastName) {
+    public ContactData setLastName(String lastName) {
         this.lastName = lastName;
+        return this;
     }
 
     public void setAddress(String address) {
         this.address = address;
     }
 
-    public void setMobilePhone(String mobilePhone) {
+    public ContactData setMobilePhone(String mobilePhone) {
         this.mobilePhone = mobilePhone;
+        return this;
     }
 
-    public void setEmail(String email) {
+    public ContactData setEmail(String email) {
         this.email = email;
+        return this;
     }
 
     public void setDateBirth(String dateBirth) {

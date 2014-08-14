@@ -4,6 +4,7 @@ import org.testng.annotations.Test;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 import static org.testng.Assert.assertEquals;
 
@@ -15,10 +16,12 @@ public class ContactRemovalTests extends TestBase {
     @Test
     public void deleteSomeContact() {
         app.getNavigationHelper().openMainPage();
-        int index = 0;
 
         // save old state
         List<ContactData> oldList = app.getContactHelper().getContacts();
+
+        Random rnd = new Random();
+        int index = rnd.nextInt(oldList.size() - 1);
 
         // actions
         app.getContactHelper().deleteContact(index);

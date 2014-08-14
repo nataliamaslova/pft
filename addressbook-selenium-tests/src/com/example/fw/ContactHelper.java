@@ -54,11 +54,11 @@ public class ContactHelper extends HelperBase {
         List<ContactData> contacts = new ArrayList<ContactData>();
         List<WebElement> rows = getContactRows(By.name("entry"));
         for (WebElement row : rows) {
-            ContactData contact = new ContactData();
-            contact.setLastName(row.findElement(By.xpath(".//td[2]")).getText());
-            contact.setFirstName(row.findElement(By.xpath(".//td[3]")).getText());
-            contact.setEmail(row.findElement(By.xpath(".//td[4]")).getText());
-            contact.setMobilePhone(row.findElement(By.xpath(".//td[5]")).getText());
+             ContactData contact = new ContactData()
+            .setLastName(row.findElement(By.xpath(".//td[2]")).getText())
+            .setFirstName(row.findElement(By.xpath(".//td[3]")).getText())
+            .setEmail(row.findElement(By.xpath(".//td[4]")).getText())
+            .setMobilePhone(row.findElement(By.xpath(".//td[5]")).getText());
             contacts.add(contact);
         }
         return contacts;
