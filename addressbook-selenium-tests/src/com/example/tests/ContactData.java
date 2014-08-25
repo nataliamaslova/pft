@@ -9,7 +9,6 @@ public class ContactData implements Comparable<ContactData> {
     private String dateBirth;
     private String monthBirth;
     private String yearBirth;
-    private String groupName;
 
     public ContactData() {
     }
@@ -46,50 +45,6 @@ public class ContactData implements Comparable<ContactData> {
         return yearBirth;
     }
 
-    public String getGroupName() {
-        return groupName;
-    }
-
-    public ContactData setFirstName(String firstName) {
-        this.firstName = firstName;
-        return this;
-    }
-
-    public ContactData setLastName(String lastName) {
-        this.lastName = lastName;
-        return this;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public ContactData setMobilePhone(String mobilePhone) {
-        this.mobilePhone = mobilePhone;
-        return this;
-    }
-
-    public ContactData setEmail(String email) {
-        this.email = email;
-        return this;
-    }
-
-    public void setDateBirth(String dateBirth) {
-        this.dateBirth = dateBirth;
-    }
-
-    public void setMonthBirth(String monthBirth) {
-        this.monthBirth = monthBirth;
-    }
-
-    public void setGroupName(String groupName) {
-        this.groupName = groupName;
-    }
-
-    public void setYearBirth(String yearBirth) {
-        this.yearBirth = yearBirth;
-    }
-
     @Override
     public String toString() {
         return "ContactData{" +
@@ -101,7 +56,6 @@ public class ContactData implements Comparable<ContactData> {
                 ", dateBirth='" + dateBirth + '\'' +
                 ", monthBirth='" + monthBirth + '\'' +
                 ", yearBirth='" + yearBirth + '\'' +
-                ", groupName='" + groupName + '\'' +
                 '}';
     }
 
@@ -127,4 +81,43 @@ public class ContactData implements Comparable<ContactData> {
         return this.getLastName().toLowerCase().compareTo(other.getLastName().toLowerCase());
     }
 
+    public ContactData withFirstName(String firstName) {
+        this.firstName = firstName;
+        return this;
+    }
+
+    public ContactData withLastName(String lastName) {
+        this.lastName = lastName;
+        return this;
+    }
+
+    public ContactData withAddress(String address) {
+        this.address = address;
+        return this;
+    }
+
+    public ContactData withMobilePhone(String mobilePhone) {
+        this.mobilePhone = mobilePhone;
+        return this;
+    }
+
+    public ContactData withEmail(String email) {
+        this.email = email;
+        return this;
+    }
+
+    public ContactData withDateBirth(String dateBirth) {
+        this.dateBirth = dateBirth;
+        return this;
+    }
+
+    public ContactData withMonthBirth(String monthBirth) {
+        this.monthBirth = monthBirth;
+        return this;
+    }
+
+    public ContactData withYearBirth(String yearBirth) {
+        this.yearBirth = yearBirth;
+        return this;
+    }
 }

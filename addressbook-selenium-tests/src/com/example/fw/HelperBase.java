@@ -33,13 +33,13 @@ public abstract class HelperBase {
 
     protected void selectByText(By locator, String text) {
         if (text != null) {
-            new Select(driver.findElement(locator)).selectByVisibleText(text); // todo
+            new Select(driver.findElement(locator)).selectByVisibleText(text);
         }
     }
 
- /*   protected WebElement findElement(By by) {
+    protected WebElement findElement(By by) {
         return driver.findElement(by);
-    }*/
+    }
 
     protected List<WebElement> findElements(By by) {
         return driver.findElements(by);

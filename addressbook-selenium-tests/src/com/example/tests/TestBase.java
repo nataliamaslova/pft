@@ -31,10 +31,10 @@ public class TestBase {
     public Iterator<Object[]> randomValidGroupGenerator() {
         List<Object[]> list = new ArrayList<Object[]>();
         for (int i = 0; i < 5; i++) {
-            GroupData group = new GroupData();
-            group.name = generateRandomString();
-            group.header = generateRandomString();
-            group.footer = generateRandomString();
+            GroupData group = new GroupData()
+                    .withName(generateRandomString())
+                    .withHeader(generateRandomString())
+                    .withFooter(generateRandomString());
             list.add(new Object[]{group});
         }
         return list.iterator();
@@ -53,15 +53,15 @@ public class TestBase {
     public Iterator<Object[]> randomValidContactGenerator() {
         List<Object[]> list = new ArrayList<Object[]>();
         for (int i = 0; i < 5; i++) {
-            ContactData contact = new ContactData();
-            contact.setFirstName(generateRandomString());
-            contact.setLastName(generateRandomString());
-            contact.setAddress(generateRandomString());
-            contact.setMobilePhone(generateRandomString());
-            contact.setEmail(generateRandomString());
-            contact.setDateBirth(generateRandomInt(31));
-            contact.setMonthBirth(generateRandomMonth());
-            contact.setYearBirth(generateRandomInt(2010));
+            ContactData contact = new ContactData()
+                    .withFirstName(generateRandomString())
+                    .withLastName(generateRandomString())
+                    .withAddress(generateRandomString())
+                    .withMobilePhone(generateRandomString())
+                    .withEmail(generateRandomString())
+                    .withDateBirth(generateRandomInt(31))
+                    .withMonthBirth(generateRandomMonth())
+                    .withYearBirth(generateRandomInt(2010));
             list.add(new Object[]{contact});
         }
         return list.iterator();
@@ -77,19 +77,56 @@ public class TestBase {
         int i = rnd.nextInt(12);
         String month = "";
         switch (i) {
-            case 0: {month = "January"; break;}
-            case 1: {month = "February"; break;}
-            case 2: {month = "March"; break;}
-            case 3: {month = "April"; break;}
-            case 4: {month = "May"; break;}
-            case 5: {month = "June"; break;}
-            case 6: {month = "July"; break;}
-            case 7: {month = "August"; break;}
-            case 8: {month = "September"; break;}
-            case 9: {month = "October"; break;}
-            case 10: {month = "November"; break;}
-            case 11: {month = "December"; break;}
-            default: month = "";
+            case 0: {
+                month = "January";
+                break;
+            }
+            case 1: {
+                month = "February";
+                break;
+            }
+            case 2: {
+                month = "March";
+                break;
+            }
+            case 3: {
+                month = "April";
+                break;
+            }
+            case 4: {
+                month = "May";
+                break;
+            }
+            case 5: {
+                month = "June";
+                break;
+            }
+            case 6: {
+                month = "July";
+                break;
+            }
+            case 7: {
+                month = "August";
+                break;
+            }
+            case 8: {
+                month = "September";
+                break;
+            }
+            case 9: {
+                month = "October";
+                break;
+            }
+            case 10: {
+                month = "November";
+                break;
+            }
+            case 11: {
+                month = "December";
+                break;
+            }
+            default:
+                month = "";
         }
         return month;
     }
