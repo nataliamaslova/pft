@@ -16,8 +16,17 @@ public class ContactHelper extends HelperBase {
         super(manager);
     }
 
+    private List<ContactData> cachedContacts;
+
     public List<ContactData> getContacts() {
-        List<ContactData> contacts = new ArrayList<ContactData>();
+        if (cachedContacts == null) {
+            rebuildCache();
+        }
+        return cachedContacts;
+    }
+
+    public void rebuildCache() {
+        cachedContacts = new ArrayList<ContactData>();
 
         manager.navigateTo().mainPage();
         List<WebElement> rows = getContactRows(By.name("entry"));
@@ -27,19 +36,19 @@ public class ContactHelper extends HelperBase {
                     .withFirstName(row.findElement(By.xpath(".//td[3]")).getText())
                     .withEmail(row.findElement(By.xpath(".//td[4]")).getText())
                     .withMobilePhone(row.findElement(By.xpath(".//td[5]")).getText());
-            contacts.add(contact);
+            cachedContacts.add(contact);
         }
-        return contacts;
     }
 
     public ContactHelper createContact(ContactData contact) {
         manager.navigateTo().contactPage();
         fillContactForm(contact);
         submitContactCreation();
+        rebuildCache();
         return this;
     }
 
-    public void modifyContact(ContactData contact, int index) {
+    public ContactHelper modifyContact(ContactData contact, int index) {
         initContactModification(index);
         contact.withFirstName("Natalia")
                 .withLastName("Maslova")
@@ -47,11 +56,14 @@ public class ContactHelper extends HelperBase {
                 .withEmail("maslova.nd@gmail.com");
         fillContactForm(contact);
         submitContactModification();
+        rebuildCache();
+        return this;
     }
 
     public ContactHelper deleteContact(int index) {
         initContactModification(index);
         submitContactDeletion();
+        rebuildCache();
         return this;
     }
 
@@ -76,17 +88,21 @@ public class ContactHelper extends HelperBase {
 
     public ContactHelper submitContactCreation() {
         click(By.name("submit"));
+        cachedContacts = null;
         return this;
     }
 
     public ContactHelper submitContactModification() {
         click(By.name("update"));
+        cachedContacts = null;
         return this;
     }
 
-    private void submitContactDeletion() {
+    private ContactHelper submitContactDeletion() {
         click(By.xpath("//input[@value=\"Delete\"]"));
         delayInMs(200);
+        cachedContacts = null;
+        return this;
     }
 
     private void selectContactByIndex(int index) {

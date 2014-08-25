@@ -16,17 +16,25 @@ public class GroupHelper extends HelperBase {
         super(manager);
     }
 
+    private List<GroupData> cachedGroups;
+
     public List<GroupData> getGroups() {
-        List<GroupData> groups = new ArrayList<GroupData>();
+       if (cachedGroups == null) {
+           rebuildCache();
+       }
+       return cachedGroups;
+    }
+
+    private void rebuildCache() {
+        cachedGroups = new ArrayList<GroupData>();
 
         manager.navigateTo().groupsPage();
         List<WebElement> checkboxes = driver.findElements(By.name("selected[]"));
         for (WebElement checkbox: checkboxes) {
             String title = checkbox.getAttribute("title");
             String name = title.substring("Select(".length() + 1, title.length() - ")".length());
-            groups.add(new GroupData().withName(name));
+            cachedGroups.add(new GroupData().withName(name));
         }
-        return groups;
     }
 
     public GroupHelper createGroup(GroupData group) {
@@ -35,6 +43,7 @@ public class GroupHelper extends HelperBase {
         fillGroupForm(group);
         submitGroupCreation();
         returnToGroupsPage();
+        rebuildCache();
         return this;
     }
 
@@ -43,6 +52,7 @@ public class GroupHelper extends HelperBase {
         fillGroupForm(group);
         submitGroupModification();
         returnToGroupsPage();
+        rebuildCache();
         return this;
     }
 
@@ -50,6 +60,7 @@ public class GroupHelper extends HelperBase {
         selectGroupByIndex(index);
         submitGroupDeletion();
         returnToGroupsPage();
+        rebuildCache();
         return this;
     }
 
@@ -61,11 +72,6 @@ public class GroupHelper extends HelperBase {
 
     public GroupHelper initGroupCreation() {
         click(By.name("new"));
-        return this;
-    }
-
-    public GroupHelper submitGroupCreation() {
-        click(By.name("submit"));
         return this;
     }
 
@@ -87,12 +93,22 @@ public class GroupHelper extends HelperBase {
         return this;
     }
 
-    private void submitGroupModification() {
-        click(By.name("update"));
+    private GroupHelper submitGroupCreation() {
+        click(By.name("submit"));
+        cachedGroups = null;
+        return this;
     }
 
-    private void submitGroupDeletion() {
+    private GroupHelper submitGroupModification() {
+        click(By.name("update"));
+        cachedGroups = null;
+        return this;
+    }
+
+    private GroupHelper submitGroupDeletion() {
         click(By.name("delete"));
+        cachedGroups = null;
+        return this;
     }
 
 }
