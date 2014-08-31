@@ -42,6 +42,14 @@ public class TestBase {
         return list;
     }
 
+    public static List<Object[]> wrapContactsForDataProvider(List<ContactData> contacts) {
+        List<Object[]> list = new ArrayList<Object[]>();
+        for (ContactData contact: contacts) {
+            list.add(new Object[]{contact});
+        }
+        return list;
+    }
+
     public static String generateRandomString() {
         Random rnd = new Random();
         if (rnd.nextInt(3) == 0) {
