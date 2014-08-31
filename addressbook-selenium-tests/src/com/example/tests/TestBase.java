@@ -10,6 +10,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
+import static com.example.tests.GroupDataGenerator.generateRandomGroups;
+
 /**
  * Created by nataliamaslova on 7/27/2014.
  */
@@ -29,18 +31,18 @@ public class TestBase {
 
     @DataProvider
     public Iterator<Object[]> randomValidGroupGenerator() {
-        List<Object[]> list = new ArrayList<Object[]>();
-        for (int i = 0; i < 5; i++) {
-            GroupData group = new GroupData()
-                    .withName(generateRandomString())
-                    .withHeader(generateRandomString())
-                    .withFooter(generateRandomString());
-            list.add(new Object[]{group});
-        }
-        return list.iterator();
+        return wrapGroupsForDataProvider(generateRandomGroups(5)).iterator();
     }
 
-    public String generateRandomString() {
+    public static List<Object[]> wrapGroupsForDataProvider(List<GroupData> groups) {
+        List<Object[]> list = new ArrayList<Object[]>();
+        for (GroupData group: groups) {
+            list.add(new Object[]{group});
+        }
+        return list;
+    }
+
+    public static String generateRandomString() {
         Random rnd = new Random();
         if (rnd.nextInt(3) == 0) {
             return "";
@@ -49,30 +51,12 @@ public class TestBase {
         }
     }
 
-    @DataProvider
-    public Iterator<Object[]> randomValidContactGenerator() {
-        List<Object[]> list = new ArrayList<Object[]>();
-        for (int i = 0; i < 5; i++) {
-            ContactData contact = new ContactData()
-                    .withFirstName(generateRandomString())
-                    .withLastName(generateRandomString())
-                    .withAddress(generateRandomString())
-                    .withMobilePhone(generateRandomString())
-                    .withEmail(generateRandomString())
-                    .withDateBirth(generateRandomInt(31))
-                    .withMonthBirth(generateRandomMonth())
-                    .withYearBirth(generateRandomInt(2010));
-            list.add(new Object[]{contact});
-        }
-        return list.iterator();
-    }
-
-    private String generateRandomInt(int i) {
+    public static String generateRandomInt(int i) {
         Random rnd = new Random();
         return String.valueOf(rnd.nextInt(i));
     }
 
-    private String generateRandomMonth() {
+    public static String generateRandomMonth() {
         Random rnd = new Random();
         int i = rnd.nextInt(12);
         String month = "";
@@ -130,4 +114,23 @@ public class TestBase {
         }
         return month;
     }
+
+    @DataProvider
+    public Iterator<Object[]> randomValidContactGenerator() {
+        List<Object[]> list = new ArrayList<Object[]>();
+        for (int i = 0; i < 5; i++) {
+            ContactData contact = new ContactData()
+                    .withFirstName(generateRandomString())
+                    .withLastName(generateRandomString())
+                    .withAddress(generateRandomString())
+                    .withMobilePhone(generateRandomString())
+                    .withEmail(generateRandomString())
+                    .withDateBirth(generateRandomInt(31))
+                    .withMonthBirth(generateRandomMonth())
+                    .withYearBirth(generateRandomInt(2010));
+            list.add(new Object[]{contact});
+        }
+        return list.iterator();
+    }
+
 }
