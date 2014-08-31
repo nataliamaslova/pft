@@ -1,0 +1,2 @@
+cd C:\Dev\pft\addressbook-selenium-tests
+java -cp out\production\addressbook-selenium-tests;C:\Dev\Libraries\xstream-1.4.7\lib\xstream-1.4.7.jar;C:\Dev\Libraries\xstream-1.4.7\lib\xstream\xpp3_min-1.1.4c.jar;C:\Dev\Libraries\xstream-1.4.7\lib\xstream\xmlpull-1.1.3.1.jar;C:\Dev\Libraries\selenium-server-standalone-2.42.2.jar org.testng.TestNG temp-testng-customsuite.xml
