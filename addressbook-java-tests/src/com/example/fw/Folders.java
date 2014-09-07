@@ -20,6 +20,12 @@ public class Folders {
         return newList;
     }
 
+    public Folders withDeleted(String folder) {
+        Folders newList = new Folders(storedFolders);
+        newList.storedFolders.remove(folder);
+        return newList;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

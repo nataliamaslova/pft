@@ -35,4 +35,23 @@ public class FolderHelper extends HelpersBase {
         return waitMessageDialog("Warning", 3000);
     }
 
+    public void deleteFolder(String folderName) {
+        selectFolder(folderName);
+        manager.getMenuHelper().pushDeleteFolder();
+        JDialogOperator dialog = new JDialogOperator(mainFrame);
+        new JButtonOperator(dialog, "Yes").push();
+    }
+
+    private void selectFolder(String folderName) {
+        JTreeOperator tree = new JTreeOperator(mainFrame);
+        Object[] children = tree.getChildren(tree.getRoot());
+        int i = 0;
+        for (Object child: children) {
+            if (child.toString().equals(folderName)) {
+                tree.selectRow(i);
+                return;
+            }
+            i++;
+        }
+    }
 }
