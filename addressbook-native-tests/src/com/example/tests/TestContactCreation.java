@@ -17,4 +17,14 @@ public class TestContactCreation extends TestBase {
         Assert.assertEquals(contact, createdContact);
         Thread.sleep(5000);
     }
+
+    @Test
+    public void shouldDeleteContact() throws InterruptedException {
+        // preparation
+        Contact contact = new Contact().setFirstName("first").setLastName("last");
+        app.getContactHelper().createContact(contact);
+
+        // action - delete
+        app.getContactHelper().deleteFirstContact();
+    }
 }
