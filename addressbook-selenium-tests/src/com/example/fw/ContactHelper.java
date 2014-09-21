@@ -1,6 +1,7 @@
 package com.example.fw;
 
 import com.example.tests.ContactData;
+import com.example.tests.GroupData;
 import com.example.utils.SortedListOf;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -10,7 +11,7 @@ import java.util.List;
 /**
  * Created by nataliamaslova on 8/2/2014.
  */
-public class ContactHelper extends HelperBase {
+public class ContactHelper extends WebDriverHelperBase {
 
     public ContactHelper(ApplicationManager manager) {
         super(manager);
@@ -26,29 +27,18 @@ public class ContactHelper extends HelperBase {
     }
 
     public void rebuildCache() {
-        cachedContacts = new SortedListOf<ContactData>();
-
-        manager.navigateTo().mainPage();
-        List<WebElement> rows = getContactRows(By.name("entry"));
-        for (WebElement row : rows) {
-            ContactData contact = new ContactData()
-                    .withLastName(row.findElement(By.xpath(".//td[2]")).getText())
-                    .withFirstName(row.findElement(By.xpath(".//td[3]")).getText())
-                    .withEmail(row.findElement(By.xpath(".//td[4]")).getText())
-                    .withMobilePhone(row.findElement(By.xpath(".//td[5]")).getText());
-            cachedContacts.add(contact);
-        }
+        cachedContacts = new SortedListOf<ContactData>(manager.getHibernateHelper().listContacts());
     }
 
     public ContactHelper createContact(ContactData contact) {
         manager.navigateTo().contactPage();
         fillContactForm(contact);
         submitContactCreation();
-        rebuildCache();
         return this;
     }
 
     public ContactHelper modifyContact(ContactData contact, int index) {
+        manager.navigateTo().mainPage();
         initContactModification(index);
         contact.withFirstName("Natalia")
                 .withLastName("Maslova")
@@ -56,14 +46,13 @@ public class ContactHelper extends HelperBase {
                 .withEmail("maslova.nd@gmail.com");
         fillContactForm(contact);
         submitContactModification();
-        rebuildCache();
         return this;
     }
 
     public ContactHelper deleteContact(int index) {
+        manager.navigateTo().mainPage();
         initContactModification(index);
         submitContactDeletion();
-        rebuildCache();
         return this;
     }
 
@@ -88,12 +77,14 @@ public class ContactHelper extends HelperBase {
 
     public ContactHelper submitContactCreation() {
         click(By.name("submit"));
+        delayInMs(200);
         cachedContacts = null;
         return this;
     }
 
     public ContactHelper submitContactModification() {
         click(By.name("update"));
+        delayInMs(200);
         cachedContacts = null;
         return this;
     }
@@ -107,6 +98,7 @@ public class ContactHelper extends HelperBase {
 
     private void selectContactByIndex(int index) {
         click(By.xpath("//table//tr[" + (index + 2) + "]/td[7]//img"));
+        delayInMs(200);
     }
 
     private List<WebElement> getContactRows(By by) {

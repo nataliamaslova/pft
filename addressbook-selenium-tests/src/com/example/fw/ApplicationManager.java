@@ -14,36 +14,17 @@ import java.util.concurrent.TimeUnit;
  */
 public class ApplicationManager {
 
-    public WebDriver driver;
+    private WebDriver driver;
     public String baseUrl;
 
     private NavigationHelper navigationHelper;
     private GroupHelper groupHelper;
     private ContactHelper contactHelper;
     private Properties properties;
+    private HibernateHelper hibernateHelper;
 
     public ApplicationManager(Properties properties) {
         this.properties = properties;
-        String browser = properties.getProperty("browser");
-        if ("firefox".equals(browser)) {
-            DesiredCapabilities capabilities = DesiredCapabilities.firefox();
-            driver = new FirefoxDriver(capabilities);
-        } else if ("chrome".equals(browser)) {
-            System.setProperty("webdriver.chrome.driver", "src/resources/browserdrivers/chromedriver");
-            DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-            driver = new ChromeDriver(capabilities);
-        } else if ("ie".equals(browser)) {
-            System.setProperty("webdriver.ie.driver", "src/resources/browserdrivers/IEDriverServer");
-            DesiredCapabilities capabilities = DesiredCapabilities.internetExplorer();
-            capabilities.setCapability(InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true);
-            driver = new InternetExplorerDriver(capabilities);
-        } else {
-            throw new Error("Unsupported browser: " + browser);
-        }
-
-        baseUrl = properties.getProperty("baseUrl");
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-        driver.get(baseUrl);
     }
 
     public void stop() {
@@ -71,4 +52,35 @@ public class ApplicationManager {
         return contactHelper;
     }
 
+    public WebDriver getDriver() {
+        if (driver == null) {
+            String browser = properties.getProperty("browser");
+            if ("firefox".equals(browser)) {
+                DesiredCapabilities capabilities = DesiredCapabilities.firefox();
+                driver = new FirefoxDriver(capabilities);
+            } else if ("chrome".equals(browser)) {
+                System.setProperty("webdriver.chrome.driver", "src/resources/browserdrivers/chromedriver");
+                DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+                driver = new ChromeDriver(capabilities);
+            } else if ("ie".equals(browser)) {
+                System.setProperty("webdriver.ie.driver", "src/resources/browserdrivers/IEDriverServer");
+                DesiredCapabilities capabilities = DesiredCapabilities.internetExplorer();
+                capabilities.setCapability(InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true);
+                driver = new InternetExplorerDriver(capabilities);
+            } else {
+                throw new Error("Unsupported browser: " + browser);
+            }
+            baseUrl = properties.getProperty("baseUrl");
+            driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+            driver.get(baseUrl);
+        }
+        return driver;
+    }
+
+    public HibernateHelper getHibernateHelper() {
+        if (hibernateHelper == null) {
+            hibernateHelper = new HibernateHelper(this);
+        }
+        return hibernateHelper;
+    }
 }

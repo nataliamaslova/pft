@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by nataliamaslova on 8/2/2014.
  */
-public class GroupHelper extends HelperBase {
+public class GroupHelper extends WebDriverHelperBase {
 
     public GroupHelper(ApplicationManager manager) {
         super(manager);
@@ -26,15 +26,7 @@ public class GroupHelper extends HelperBase {
     }
 
     private void rebuildCache() {
-        cachedGroups = new SortedListOf<GroupData>();
-
-        manager.navigateTo().groupsPage();
-        List<WebElement> checkboxes = driver.findElements(By.name("selected[]"));
-        for (WebElement checkbox: checkboxes) {
-            String title = checkbox.getAttribute("title");
-            String name = title.substring("Select(".length() + 1, title.length() - ")".length());
-            cachedGroups.add(new GroupData().withName(name));
-        }
+        cachedGroups = new SortedListOf<GroupData>(manager.getHibernateHelper().listGroups());
     }
 
     public GroupHelper createGroup(GroupData group) {
@@ -42,25 +34,21 @@ public class GroupHelper extends HelperBase {
         initGroupCreation();
         fillGroupForm(group);
         submitGroupCreation();
-        returnToGroupsPage();
-        rebuildCache();
         return this;
     }
 
     public GroupHelper modifyGroup(int index, GroupData group) {
+        manager.navigateTo().groupsPage();
         initGroupModification(index);
         fillGroupForm(group);
         submitGroupModification();
-        returnToGroupsPage();
-        rebuildCache();
         return this;
     }
 
     public GroupHelper deleteGroup(int index) {
+        manager.navigateTo().groupsPage();
         selectGroupByIndex(index);
         submitGroupDeletion();
-        returnToGroupsPage();
-        rebuildCache();
         return this;
     }
 
@@ -90,23 +78,27 @@ public class GroupHelper extends HelperBase {
     public GroupHelper initGroupModification(int index) {
         selectGroupByIndex(index);
         click(By.name("edit"));
+        delayInMs(200);
         return this;
     }
 
     private GroupHelper submitGroupCreation() {
         click(By.name("submit"));
+        delayInMs(200);
         cachedGroups = null;
         return this;
     }
 
     private GroupHelper submitGroupModification() {
         click(By.name("update"));
+        delayInMs(500);
         cachedGroups = null;
         return this;
     }
 
     private GroupHelper submitGroupDeletion() {
         click(By.name("delete"));
+        delayInMs(200);
         cachedGroups = null;
         return this;
     }

@@ -5,7 +5,7 @@ import org.openqa.selenium.By;
 /**
  * Created by nataliamaslova on 8/2/2014.
  */
-public class NavigationHelper extends HelperBase {
+public class NavigationHelper extends WebDriverHelperBase {
 
     public NavigationHelper(ApplicationManager manager) {
         super(manager);
@@ -14,23 +14,22 @@ public class NavigationHelper extends HelperBase {
     public void mainPage() {
         if (! onMainPage()) {
             click(By.linkText("home"));
+            delayInMs(200);
         }
     }
 
     public void contactPage() {
         if (! onContactPage()) {
             click(By.linkText("add new"));
+            delayInMs(200);
         }
     }
 
     public void groupsPage() {
         if (! onGroupsPage()) {
             click(By.linkText("groups"));
+            delayInMs(200);
         }
-    }
-
-    public void gotoHomePage() {
-        click(By.linkText("home page"));
     }
 
     private boolean onMainPage() {
@@ -47,7 +46,7 @@ public class NavigationHelper extends HelperBase {
     }
 
     private boolean onContactPage() {
-        return driver.findElements(By.xpath("//h1[contains(text(),'Edit / add address book entry')]")).size() > 0;
+        return driver.findElements(By.name("submit")).size() > 0;
     }
 
 }

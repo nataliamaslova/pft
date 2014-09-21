@@ -1,6 +1,8 @@
 package com.example.tests;
 
 public class ContactData implements Comparable<ContactData> {
+
+    private String id;
     private String firstName;
     private String lastName;
     private String address;
@@ -11,6 +13,11 @@ public class ContactData implements Comparable<ContactData> {
     private String yearBirth;
 
     public ContactData() {
+    }
+
+
+    public String getId() {
+        return id;
     }
 
     public String getFirstName() {
@@ -43,6 +50,42 @@ public class ContactData implements Comparable<ContactData> {
 
     public String getYearBirth() {
         return yearBirth;
+    }
+
+    public void setYearBirth(String yearBirth) {
+        this.yearBirth = yearBirth;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setMobilePhone(String mobilePhone) {
+        this.mobilePhone = mobilePhone;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setDateBirth(String dateBirth) {
+        this.dateBirth = dateBirth;
+    }
+
+    public void setMonthBirth(String monthBirth) {
+        this.monthBirth = monthBirth;
     }
 
     @Override
