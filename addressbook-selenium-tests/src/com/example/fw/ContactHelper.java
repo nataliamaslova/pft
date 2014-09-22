@@ -1,7 +1,6 @@
 package com.example.fw;
 
 import com.example.tests.ContactData;
-import com.example.tests.GroupData;
 import com.example.utils.SortedListOf;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -19,15 +18,56 @@ public class ContactHelper extends WebDriverHelperBase {
 
     private SortedListOf<ContactData> cachedContacts;
 
-    public SortedListOf<ContactData> getContacts() {
+    private SortedListOf<ContactData> contactsFromUI;
+
+    public SortedListOf<ContactData> getContactsFromDB() {
         if (cachedContacts == null) {
-            rebuildCache();
+            rebuildCacheOnDB();
         }
         return cachedContacts;
     }
 
-    public void rebuildCache() {
+    public void rebuildCacheOnDB() {
         cachedContacts = new SortedListOf<ContactData>(manager.getHibernateHelper().listContacts());
+    }
+
+    public SortedListOf<ContactData> getContactsFromUIMainPage() {
+        contactsFromUI = new SortedListOf<ContactData>();
+
+        manager.navigateTo().mainPage();
+        List<WebElement> rows = getContactRows(By.name("entry"));
+        for (WebElement row : rows) {
+            ContactData contact = new ContactData()
+                    .withLastName(row.findElement(By.xpath(".//td[2]")).getText())
+                    .withFirstName(row.findElement(By.xpath(".//td[3]")).getText())
+                    .withEmail(row.findElement(By.xpath(".//td[4]")).getText())
+                    .withMobilePhone(row.findElement(By.xpath(".//td[5]")).getText());
+            contactsFromUI.add(contact);
+        }
+        return contactsFromUI;
+    }
+
+    public SortedListOf<ContactData> getContactsFromUIEditForm() {
+        contactsFromUI = new SortedListOf<ContactData>();
+
+        manager.navigateTo().mainPage();
+        int rows = getContactRows(By.name("entry")).size();
+        for (int index = 0; index < rows; index++) {
+            findElement(By.xpath("//table//tr[" + (index + 2) + "]/td[7]//img")).click();
+            delayInMs(500);
+            ContactData contact = new ContactData()
+                    .withFirstName(findElement(By.name("firstname")).getAttribute("value"))
+                    .withLastName(findElement(By.name("lastname")).getAttribute("value"))
+                    .withAddress(findElement((By.name("address"))).getText())
+                    .withMobilePhone(findElement(By.name("mobile")).getAttribute("value"))
+                    .withEmail(findElement(By.name("email")).getAttribute("value"))
+                    .withDateBirth(findElement(By.name("bday")).getAttribute("value"))
+                    .withMonthBirth(findElement(By.name("bmonth")).getAttribute("value"))
+                    .withYearBirth(findElement(By.name("byear")).getAttribute("value"));
+            contactsFromUI.add(contact);
+            manager.navigateTo().mainPage();
+        }
+        return contactsFromUI;
     }
 
     public ContactHelper createContact(ContactData contact) {
