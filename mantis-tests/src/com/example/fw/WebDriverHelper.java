@@ -1,24 +1,11 @@
 package com.example.fw;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.ie.InternetExplorerDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
 /**
  * Created by nataliamaslova on 8/2/2014.
  */
 public class WebDriverHelper {
 
-    public static WebDriver driver;
+ /*   public static WebDriver driver;
     private final ApplicationManager manager;
     private WebDriverWait wait;
 
@@ -48,5 +35,5 @@ public class WebDriverHelper {
 
     protected void stop() {
         driver.close();
-    }
+    }*/
 }

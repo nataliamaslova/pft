@@ -11,12 +11,16 @@ public class ApplicationManager {
 
     private Properties properties;
     private HibernateHelper hibernateHelper;
-    private WebDriverHelper webDriverHelper;
+    private HelperWithWebDriverBase helperWithWebDriverBase;
     private AccountHelper accountHelper;
+    private MailHelper mailHelper;
+    private JamesHelper jamesHelper;
 
-    public static ApplicationManager getInstance() {
+    public static ApplicationManager getInstance(Properties properties) {
         if (singleton == null) {
             singleton = new ApplicationManager();
+            singleton.setProperties(properties);
+            singleton.helperWithWebDriverBase = new HelperWithWebDriverBase(singleton);
         }
         return singleton;
     }
@@ -33,19 +37,6 @@ public class ApplicationManager {
         return properties.getProperty(key, defaultValue);
     }
 
-    public void stop() {
-        if (webDriverHelper != null) {
-            webDriverHelper.stop();
-        }
-    }
-
-    public WebDriverHelper getWebDriverHelper() {
-        if (webDriverHelper == null) {
-            webDriverHelper = new WebDriverHelper(this);
-        }
-        return webDriverHelper;
-    }
-
     public HibernateHelper getHibernateHelper() {
         if (hibernateHelper == null) {
             hibernateHelper = new HibernateHelper(this);
@@ -60,4 +51,24 @@ public class ApplicationManager {
         return accountHelper;
     }
 
+    public MailHelper getMailHelper() {
+        if (mailHelper == null) {
+            mailHelper = new MailHelper(this);
+        }
+        return mailHelper;
+    }
+
+    public JamesHelper getJamesHelper() {
+        if (jamesHelper == null) {
+            jamesHelper = new JamesHelper(this);
+        }
+        return jamesHelper;
+    }
+
+    public HelperWithWebDriverBase getHelperWithWebDriverBase() {
+        if (helperWithWebDriverBase == null) {
+            helperWithWebDriverBase = new HelperWithWebDriverBase(this);
+        }
+        return helperWithWebDriverBase;
+    }
 }

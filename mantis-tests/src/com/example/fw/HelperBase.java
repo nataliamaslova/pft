@@ -10,4 +10,12 @@ public class HelperBase {
     public HelperBase(ApplicationManager manager) {
         this.manager = manager;
     }
+
+    protected void pause(int millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 }

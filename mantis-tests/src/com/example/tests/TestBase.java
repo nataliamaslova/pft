@@ -23,7 +23,7 @@ public class TestBase {
         Properties properties = new Properties();
         properties.load(new FileReader(new File(configFile)));
         log.info("setUp start");
-        app = ApplicationManager.getInstance();
+        app = ApplicationManager.getInstance(properties);
         app.setProperties(properties);
         log.info("setUp end");
     }
@@ -31,7 +31,7 @@ public class TestBase {
     @AfterTest
     public void tearDown() throws Exception {
         log.info("tearDown start");
-        ApplicationManager.getInstance().stop();
+        app.getHelperWithWebDriverBase().stop();
         log.info("tearDown end");
     }
 
