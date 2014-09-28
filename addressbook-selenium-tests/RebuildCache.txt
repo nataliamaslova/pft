@@ -1,0 +1,25 @@
+		// ContactHelper
+		cachedContacts = new SortedListOf<ContactData>();
+
+        manager.navigateTo().mainPage();
+        List<WebElement> rows = getContactRows(By.name("entry"));
+        for (WebElement row : rows) {
+            ContactData contact = new ContactData()
+                    .withLastName(row.findElement(By.xpath(".//td[2]")).getText())
+                    .withFirstName(row.findElement(By.xpath(".//td[3]")).getText())
+                    .withEmail(row.findElement(By.xpath(".//td[4]")).getText())
+                    .withMobilePhone(row.findElement(By.xpath(".//td[5]")).getText());
+            cachedContacts.add(contact);
+        }
+
+
+		//GroupHelper
+		cachedGroups = new SortedListOf<GroupData>();
+
+        manager.navigateTo().groupsPage();
+        List<WebElement> checkboxes = driver.findElements(By.name("selected[]"));
+        for (WebElement checkbox: checkboxes) {
+            String title = checkbox.getAttribute("title");
+            String name = title.substring("Select(".length() + 1, title.length() - ")".length());
+            cachedGroups.add(new GroupData().withName(name));
+        }
