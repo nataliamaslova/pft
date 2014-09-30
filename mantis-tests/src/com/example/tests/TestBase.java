@@ -13,7 +13,7 @@ import java.util.logging.Logger;
  * Created by nataliamaslova on 7/27/2014.
  */
 public class TestBase {
-     protected Logger log = Logger.getLogger("TEST");
+    protected Logger log = Logger.getLogger("TEST");
 
     protected ApplicationManager app;
 

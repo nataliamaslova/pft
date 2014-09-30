@@ -91,12 +91,4 @@ public class HelperWithWebDriverBase {
         driver.close();
     }
 
-    protected void pause(int millis) {
-        try {
-            Thread.sleep(millis);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
 }

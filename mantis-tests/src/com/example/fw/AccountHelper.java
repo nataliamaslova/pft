@@ -1,6 +1,10 @@
 package com.example.fw;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by nataliamaslova on 9/28/2014.
@@ -19,9 +23,9 @@ public class AccountHelper extends HelperWithWebDriverBase {
         type(By.name("email"), user.email);
         click(By.cssSelector("input.button"));
 
-        pause(3000);
-        Msg msg = manager.getMailHelper().getNewMail(user.login, user.password);
-        String confirmationLink = msg.getConfirmationLink();
+        delayInMs(10000);
+        String msg = manager.getMailHelper().getNewMail(user.login, user.password);
+        String confirmationLink = getConfirmationLink(msg);
 
         openAbsoluteUrl(confirmationLink);
         type(By.name("password"), user.password);
@@ -29,7 +33,25 @@ public class AccountHelper extends HelperWithWebDriverBase {
         click(By.cssSelector("input.button"));
     }
 
-    public boolean isLogged(String re) {
-        return false;
+    public String getConfirmationLink(String text) {
+        Pattern regex = Pattern.compile("http\\S*");
+        Matcher matcher = regex.matcher(text);
+        if (matcher.find()) {
+            return matcher.group();
+        } else {
+            return "";
+        }
+    }
+
+    public void login(User user) {
+        openUrl("/");
+        type(By.name("username"), user.login);
+        type(By.name("password"), user.password);
+        click(By.cssSelector("input.button"));
+    }
+
+    public String loggedUser(User user) {
+        WebElement element = findElement(By.cssSelector("td.login-info-left span"));
+        return element.getText();
     }
 }
