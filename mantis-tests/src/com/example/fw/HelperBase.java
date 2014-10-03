@@ -11,11 +11,12 @@ public class HelperBase {
         this.manager = manager;
     }
 
-    protected void pause(int millis) {
+    protected void delayInMs(long ms) {
         try {
-            Thread.sleep(millis);
+            Thread.sleep(ms);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
+
 }

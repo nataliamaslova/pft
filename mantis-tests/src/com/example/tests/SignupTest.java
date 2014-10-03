@@ -5,8 +5,13 @@ import com.example.fw.JamesHelper;
 import com.example.fw.User;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.containsString;
+import static org.junit.Assert.fail;
 import static org.testng.Assert.assertTrue;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
@@ -16,14 +21,14 @@ import static org.junit.Assert.assertThat;
  */
 public class SignupTest extends TestBase {
 
-    public User user = new User().setLogin("testuser3").setPassword("123456")
-            .setEmail("testuser3@localhostl.localdomain");
+    public User user = new User().setLogin("testuser9").setPassword("123456")
+            .setEmail("testuser9@localhost.localdomain");
 
     private JamesHelper james;
 
     private AccountHelper accHelper;
 
-    @BeforeClass
+    @BeforeTest
     public void createMailUser() {
         james = app.getJamesHelper();
         accHelper = app.getAccountHelper();
@@ -32,17 +37,33 @@ public class SignupTest extends TestBase {
         }
     }
 
-    @AfterClass
+    @AfterTest
     public void deleteMailUser() {
         if (app.getJamesHelper().doesUserExist(user.login)) {
             app.getJamesHelper().deleteUser(user.login);
         }
     }
 
-    @Test
+//    @Test
     public void newUserShouldSignup() {
         accHelper.signup(user);
         accHelper.login(user);
         assertThat(accHelper.loggedUser(user), equalTo(user.login));
+    }
+
+    @Test
+    public void accountForUserIsCreatedInDB() {
+        assertThat(app.getHibernateHelper().listUsers(), contains(user));
+    }
+
+//    @Test
+    public void existingUserShouldNotSignup() {
+        try {
+            accHelper.signup(user);
+        } catch (Exception e) {
+            assertThat(e.getMessage(), containsString("That username is already being used"));
+            return;
+        }
+        fail("Exception expected");
     }
 }

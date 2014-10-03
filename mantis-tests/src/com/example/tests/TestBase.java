@@ -31,7 +31,7 @@ public class TestBase {
     @AfterTest
     public void tearDown() throws Exception {
         log.info("tearDown start");
-        app.getHelperWithWebDriverBase().stop();
+        app.stop();
         log.info("tearDown end");
     }
 
