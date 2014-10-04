@@ -53,6 +53,7 @@ public class SignupTest extends TestBase {
 
     @Test
     public void accountForUserIsCreatedInDB() {
+        System.out.println(app.getHibernateHelper().listUsers());
         assertThat(app.getHibernateHelper().listUsers(), contains(user));
     }
 

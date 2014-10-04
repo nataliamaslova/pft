@@ -29,6 +29,7 @@ public class ApplicationManager {
         if (singleton == null) {
             singleton = new ApplicationManager();
             singleton.setProperties(properties);
+            singleton.hibernateHelper = new HibernateHelper(singleton);
             singleton.accountHelper = new AccountHelper(singleton);
             singleton.mailHelper = new MailHelper(singleton);
             singleton.jamesHelper = new JamesHelper(singleton);
